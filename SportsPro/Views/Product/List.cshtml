@@ -23,20 +23,20 @@
                             <td>@product.ProductCode</td>
                             <td>@product.Name</td>
                             <td>@product.YearlyPrice.ToString("C")</td>
-                            <td>@product.ReleaseDate</td>
+                            <td>@product.ReleaseDate.ToString("MM/dd/yyyy")</td>
                             <td>
-                                <a asp-controller="Product" asp-action="AddEdit"
-                                   asp-route-id="@product.ProductID">Edit</a>
+                                <a asp-controller="Product" asp-action="Edit"
+                                   asp-route-id="@product.ProductID" class="btn btn-primary">Edit</a>
                             </td>
                             <td>
                                 <a asp-controller="Product" asp-action="Delete"
-                                   asp-route-id="@product.ProductID">Delete</a>
+                                   asp-route-id="@product.ProductID" class="btn btn-primary">Delete</a>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
-            <a asp-controller="Product" asp-action="AddEdit">Add New Product</a>
+            <a asp-controller="Product" asp-action="Add" class="btn btn-primary">Add Product</a>
         </div>
     </div>
 </div>
