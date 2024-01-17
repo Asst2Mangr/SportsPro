@@ -9,7 +9,7 @@ namespace SportsPro.Models
             : base(options)
         { }
 
-        public DbSet<Product> Product { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<Technician> Technicians { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Customer> Customers { get; set; }

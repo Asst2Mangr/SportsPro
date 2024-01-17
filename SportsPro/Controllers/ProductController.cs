@@ -21,7 +21,7 @@ namespace SportsPro.Controllers
         }
         public IActionResult List()
         {
-            var products = context.Product.ToList();
+            var products = context.Products.ToList();
 
             return View(products);
         }
