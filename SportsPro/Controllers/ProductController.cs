@@ -2,6 +2,8 @@
 using SportsPro.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace SportsPro.Controllers
 {
@@ -19,11 +21,7 @@ namespace SportsPro.Controllers
         }
         public IActionResult List()
         {
-            List<Product> products;
-            products = new List<Product>();
-
-            products = context.Product
-            .OrderBy(p => p.ProductID).ToList();
+            var products = context.Product.ToList();
 
             return View(products);
         }
