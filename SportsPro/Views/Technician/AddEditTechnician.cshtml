@@ -1,0 +1,28 @@
+﻿@model Technician
+
+<h2>Add/Edit Technician</h2>
+<form asp-action="Edit" method="post">
+    <!-- This is quite literally a form for editing your Technicians-->
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Phone"></label>
+        <input asp-for="Phone" class="form-control" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+
+<a asp-action="TechnicianManager">Back to Technician Manager</a>
