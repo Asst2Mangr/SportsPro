@@ -19,6 +19,7 @@ namespace SportsPro.Controllers
             return View();
         }
 
+        // Loads the Customer List
         public IActionResult CustomerList()
         {
             var customers = _context.Customers.ToList();
@@ -26,6 +27,7 @@ namespace SportsPro.Controllers
 
         }
 
+        //add method allowing users to add customers to the database
         [HttpGet]
         public IActionResult Add()
         {
@@ -35,6 +37,7 @@ namespace SportsPro.Controllers
             return View("CustomerEdit", new Customer());
         }
 
+        //edit methods allowing user to edit customers already in the database
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -69,6 +72,7 @@ namespace SportsPro.Controllers
             }
         }
 
+        //delete methods allowing user to remove customers already in the database
         [HttpGet]
         public ViewResult Delete(int id)
         {
