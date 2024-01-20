@@ -14,6 +14,11 @@ namespace SportsPro.Controllers
             _context = context;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         public IActionResult CustomerList()
         {
             var customers = _context.Customers.ToList();
@@ -25,8 +30,7 @@ namespace SportsPro.Controllers
         public IActionResult Add()
         {
             ViewBag.Action = "Add";
-            var countries = _context.Countries.ToList();
-            ViewBag.Country = countries;
+            ViewBag.Countries = _context.Countries.OrderBy(c => c.Name).ToList();
 
             return View("CustomerEdit", new Customer());
         }
@@ -34,14 +38,14 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            ViewBag.Action = "Save";
-            var countries = _context.Countries.ToList();
-            ViewBag.Countries = countries;
+            ViewBag.Action = "Edit";
+            ViewBag.Countries = _context.Countries.OrderBy(c => c.Name).ToList();
             var customer = _context.Customers.Find(id);
             if (customer == null)
             {
                 return NotFound();
             }
+
             return View("CustomerEdit", customer);
         }
 
@@ -51,40 +55,33 @@ namespace SportsPro.Controllers
             if (ModelState.IsValid)
             {
                 if (customer.CustomerID == 0)
-                {
                     _context.Customers.Add(customer);
-                }
                 else
-                {
                     _context.Customers.Update(customer);
-                }
                 _context.SaveChanges();
-                return RedirectToAction("CustomerList");
+                return RedirectToAction("CustomerList", "Customer");
             }
-            return View("CustomerEdit", customer);
+            else
+            {
+                ViewBag.Action = (customer.CustomerID == 0) ? "Add" : "Edit";
+                ViewBag.Countries = _context.Countries.OrderBy(c => c.Name).ToList();
+                return View(customer);
+            }
         }
 
         [HttpGet]
-        public IActionResult Delete(int id)
+        public ViewResult Delete(int id)
         {
             var customer = _context.Customers.Find(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-            return View("CustomerDelete", customer);
+            return View(customer);
         }
 
         [HttpPost]
-        public IActionResult DeleteConfirmed(Customer model)
+        public RedirectToActionResult Delete(Customer customer)
         {
-            var customer = _context.Customers.Find(model.CustomerID);
-            if (customer != null)
-            {
-                _context.Customers.Remove(customer);
-                _context.SaveChanges();
-            }
-            return RedirectToAction("CustomerList");
+            _context.Customers.Remove(customer);
+            _context.SaveChanges();
+            return RedirectToAction("CustomerList", "Customer");
         }
     }
 }
