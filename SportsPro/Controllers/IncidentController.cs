@@ -63,5 +63,49 @@ namespace SportsPro.Controllers
             return View("IncidentEdit", incident);
         }
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var incident = ctx.Incidents.Find(id);
+
+            if (incident == null)
+            {
+                return NotFound();
+            }
+
+            var customers = ctx.Customers.ToList().OrderBy(c => c.FullName).ToList();
+            var products = ctx.Products.ToList().OrderBy(p => p.Name).ToList();
+            var technicians = ctx.Technicians.ToList().OrderBy(t => t.Name).ToList();
+
+            ViewBag.Action = "Edit";
+            ViewBag.Customers = customers;
+            ViewBag.Products = products;
+            ViewBag.Technicians = technicians;
+
+            return View("IncidentEdit", incident);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Incident incident)
+        {
+            if (ModelState.IsValid)
+            {
+                ctx.Incidents.Update(incident);
+                ctx.SaveChanges();
+                return RedirectToAction("IncidentList");
+            }
+
+            var customers = ctx.Customers.ToList().OrderBy(c => c.FullName).ToList();
+            var products = ctx.Products.ToList().OrderBy(p => p.Name).ToList();
+            var technicians = ctx.Technicians.ToList().OrderBy(t => t.Name).ToList();
+
+            ViewBag.Action = "Edit";
+            ViewBag.Customers = customers;
+            ViewBag.Products = products;
+            ViewBag.Technicians = technicians;
+
+            return View("IncidentEdit", incident);
+        }
+
     }
 }
