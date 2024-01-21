@@ -22,7 +22,7 @@ namespace SportsPro.Controllers
 
         public IActionResult IncidentList()
         {
-            var incidents = ctx.Incidents.ToList();
+            var incidents = ctx.Incidents.Include(i => i.Customer).Include(i => i.Product).ToList();
             return View(incidents);
         }
     }
