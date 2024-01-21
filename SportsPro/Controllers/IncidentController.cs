@@ -107,5 +107,20 @@ namespace SportsPro.Controllers
             return View("IncidentEdit", incident);
         }
 
+        [HttpGet]
+        public ViewResult Delete(int id)
+        {
+            var incident = ctx.Incidents.Find(id);
+            return View(incident);
+        }
+
+        [HttpPost]
+        public RedirectToActionResult Delete(Incident incident)
+        {
+            ctx.Incidents.Remove(incident);
+            ctx.SaveChanges();
+            return RedirectToAction("IncidentList", "Incident");
+        }
+
     }
 }
