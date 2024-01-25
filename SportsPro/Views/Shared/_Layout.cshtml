@@ -25,15 +25,64 @@
             </button>
             <nav class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link active" asp-controller="Home" asp-action="Index">Home</a>
-                    <a class="nav-item nav-link active" asp-controller="Product" asp-action="List">Products</a>
-                    <a class="nav-item nav-link active" asp-controller="Technician" asp-action="TechnicianManager">Technicians</a>
-                    <a class="nav-item nav-link active" asp-controller="Customer" asp-action="CustomerList">Customers</a>
-                    <a class="nav-item nav-link active" asp-controller="Incident" asp-action="IncidentList">Incidents</a>
-                    <a class="nav-item nav-link active" asp-controller="Registration" asp-action="GetCustomer">Registrations</a>
+                    @if (@ViewData["Title"] == "Home")
+                    {
+                        <a class="nav-item nav-link active" asp-controller="Home" asp-action="Index">Home</a>
+                    }
+                    else
+                    {
+                        <a class="nav-item nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                    }
+                    @if (@ViewData["Title"] == "Product Manager")
+                    {
+                        <a class="nav-item nav-link active" asp-controller="Product" asp-action="List">Products</a>
+                    }
+                    else
+                    {
+                        <a class="nav-item nav-link" asp-controller="Product" asp-action="List">Products</a>
+                    }
+                    @if (@ViewData["Title"] == "Technician Manager")
+                    {
+                        <a class="nav-item nav-link active" asp-controller="Technician" asp-action="TechnicianManager">Technicians</a>
+                    }
+                    else
+                    {
+                        <a class="nav-item nav-link" asp-controller="Technician" asp-action="TechnicianManager">Technicians</a>
+                    }
+                    @if (@ViewData["Title"] == "Customer Manager")
+                    {
+                        <a class="nav-item nav-link active" asp-controller="Customer" asp-action="CustomerList">Customers</a>
+                    }
+                    else
+                    {
+                        <a class="nav-item nav-link" asp-controller="Customer" asp-action="CustomerList">Customers</a>
+                    }
+                    @if (@ViewData["Title"] == "Incident Manager")
+                    {
+                        <a class="nav-item nav-link active" asp-controller="Incident" asp-action="IncidentList">Incidents</a>
+                    }
+                    else
+                    {
+                        <a class="nav-item nav-link" asp-controller="Incident" asp-action="IncidentList">Incidents</a>
+                    }
+                    @if (@ViewData["Title"] == "Registration")
+                    {
+                        <a class="nav-item nav-link active" asp-controller="Registration" asp-action="GetCustomer">Registrations</a>
+                    }
+                    else
+                    {
+                        <a class="nav-item nav-link" asp-controller="Registration" asp-action="GetCustomer">Registrations</a>
+                    }
                 </div>
                 <div class="navbar-nav navbar-right">
-                    <a class="nav-item nav-link active" asp-controller="Home" asp-action="About">About</a>
+                    @if (@ViewData["Title"] == "About")
+                    {
+                        <a class="nav-item nav-link active" asp-controller="Home" asp-action="About">About</a>
+                    }
+                    else
+                    {
+                        <a class="nav-item nav-link" asp-controller="Home" asp-action="About">About</a>
+                    }
                 </div>
             </nav>
         </nav>
