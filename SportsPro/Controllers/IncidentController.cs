@@ -20,7 +20,7 @@ namespace SportsPro.Controllers
             return View();
         }
 
-        public IActionResult IncidentList()
+        public IActionResult List()
         {
             var incidents = ctx.Incidents.Include(i => i.Customer).Include(i => i.Product).ToList();
             return View(incidents);
@@ -38,7 +38,7 @@ namespace SportsPro.Controllers
             ViewBag.Products = products;
             ViewBag.Technicians = technicians;
 
-            return View("IncidentEdit", new Incident());
+            return View("Edit", new Incident());
         }
 
         [HttpPost]
@@ -48,7 +48,7 @@ namespace SportsPro.Controllers
             {
                 ctx.Incidents.Add(incident);
                 ctx.SaveChanges();
-                return RedirectToAction("IncidentList");
+                return RedirectToAction("List");
             }
 
             var customers = ctx.Customers.ToList().OrderBy(c => c.FullName).ToList();
@@ -60,7 +60,7 @@ namespace SportsPro.Controllers
             ViewBag.Products = products;
             ViewBag.Technicians = technicians;
 
-            return View("IncidentEdit", incident);
+            return View("Edit", incident);
         }
 
         [HttpGet]
@@ -82,7 +82,7 @@ namespace SportsPro.Controllers
             ViewBag.Products = products;
             ViewBag.Technicians = technicians;
 
-            return View("IncidentEdit", incident);
+            return View("Edit", incident);
         }
 
         [HttpPost]
@@ -92,7 +92,7 @@ namespace SportsPro.Controllers
             {
                 ctx.Incidents.Update(incident);
                 ctx.SaveChanges();
-                return RedirectToAction("IncidentList");
+                return RedirectToAction("List");
             }
 
             var customers = ctx.Customers.ToList().OrderBy(c => c.FullName).ToList();
@@ -104,7 +104,7 @@ namespace SportsPro.Controllers
             ViewBag.Products = products;
             ViewBag.Technicians = technicians;
 
-            return View("IncidentEdit", incident);
+            return View("Edit", incident);
         }
 
         [HttpGet]
@@ -119,7 +119,7 @@ namespace SportsPro.Controllers
         {
             ctx.Incidents.Remove(incident);
             ctx.SaveChanges();
-            return RedirectToAction("IncidentList", "Incident");
+            return RedirectToAction("List", "Incident");
         }
 
     }

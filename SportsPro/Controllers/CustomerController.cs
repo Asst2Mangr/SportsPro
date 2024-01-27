@@ -20,7 +20,7 @@ namespace SportsPro.Controllers
         }
 
         // Loads the Customer List
-        public IActionResult CustomerList()
+        public IActionResult List()
         {
             var customers = _context.Customers.ToList();
             return View(customers);
@@ -34,7 +34,7 @@ namespace SportsPro.Controllers
             ViewBag.Action = "Add";
             ViewBag.Countries = _context.Countries.OrderBy(c => c.Name).ToList();
 
-            return View("CustomerEdit", new Customer());
+            return View("Edit", new Customer());
         }
 
         //edit methods allowing user to edit customers already in the database
@@ -49,7 +49,7 @@ namespace SportsPro.Controllers
                 return NotFound();
             }
 
-            return View("CustomerEdit", customer);
+            return View("Edit", customer);
         }
 
         [HttpPost]
@@ -62,7 +62,7 @@ namespace SportsPro.Controllers
                 else
                     _context.Customers.Update(customer);
                 _context.SaveChanges();
-                return RedirectToAction("CustomerList", "Customer");
+                return RedirectToAction("List", "Customer");
             }
             else
             {
@@ -85,7 +85,7 @@ namespace SportsPro.Controllers
         {
             _context.Customers.Remove(customer);
             _context.SaveChanges();
-            return RedirectToAction("CustomerList", "Customer");
+            return RedirectToAction("List", "Customer");
         }
     }
 }

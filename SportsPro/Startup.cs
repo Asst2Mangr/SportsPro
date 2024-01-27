@@ -55,9 +55,35 @@ namespace SportsPro
 
             app.UseEndpoints(endpoints =>
             {
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "about",
+                    pattern: "about",
+                    defaults: new { controller = "Home", action = "About"});
+
+                endpoints.MapControllerRoute(
+                    name: "products",
+                    pattern: "products",
+                    defaults: new { controller = "Product", action = "List" });
+
+                endpoints.MapControllerRoute(
+                    name: "technicians",
+                    pattern: "technicians",
+                    defaults: new { controller = "Technician", action = "List" });
+
+                endpoints.MapControllerRoute(
+                    name: "customers",
+                    pattern: "customers",
+                    defaults: new { controller = "Customer", action = "List" });
+
+                endpoints.MapControllerRoute(
+                    name: "incidents",
+                    pattern: "incidents",
+                    defaults: new { controller = "Incident", action = "List" });
             });
         }
     }

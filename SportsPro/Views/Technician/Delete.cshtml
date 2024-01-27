@@ -11,11 +11,6 @@
 
 <form asp-action="DeleteConfirmed" method="post">
     <input type="hidden" asp-for="TechnicianID" />
-    <p>
-        <input type ="submit" value="Yes" class="btn btn-danger" />
-        <a asp-action="TechnicianManager">No</a>
-    </p>
-
+    <input type ="submit" value="Delete" class="btn btn-primary" />
+    <a asp-controller="Technician" asp-action="List" class="btn btn-primary">Cancel</a>
 </form>
-
-<a asp-action="TechnicianManager">Back to Technician Manager</a>

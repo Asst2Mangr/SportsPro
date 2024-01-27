@@ -14,7 +14,7 @@ namespace SportsPro.Controllers
         }
 
         // Display Technician Manager page
-        public IActionResult TechnicianManager()
+        public IActionResult List()
         {
             var technicians = _context.Technicians.ToList();
             return View(technicians);
@@ -24,7 +24,7 @@ namespace SportsPro.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            return View("AddEditTechnician", new Technician());
+            return View("Edit", new Technician());
         }
 
         // Display Add/Edit Technician page with current data for technician
@@ -36,7 +36,7 @@ namespace SportsPro.Controllers
             {
                 return NotFound(); // technician is not found
             }
-            return View("AddEditTechnician", technician);
+            return View("Edit", technician);
         }
 
         [HttpPost]
@@ -54,9 +54,9 @@ namespace SportsPro.Controllers
                     _context.Technicians.Update(technician);
                 }
                 _context.SaveChanges();
-                return RedirectToAction("TechnicianManager");
+                return RedirectToAction("List");
             }
-            return View("AddEditTechnician", technician);
+            return View("Edit", technician);
         }
 
         // Display the Delete Technician page that confirms the deletion
@@ -68,7 +68,7 @@ namespace SportsPro.Controllers
             {
                 return NotFound(); // Handle when technician is not found
             }
-            return View("DeleteTechnician", technician);
+            return View("Delete", technician);
         }
 
         [HttpPost]
@@ -81,7 +81,7 @@ namespace SportsPro.Controllers
                 _context.Technicians.Remove(technician);
                 _context.SaveChanges();
             }
-            return RedirectToAction("TechnicianManager");
+            return RedirectToAction("List");
         }
     }
 }
