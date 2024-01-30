@@ -15,18 +15,18 @@ namespace SportsPro.Controllers
         {
             context = ctx;
         }
-        public IActionResult Index()
+        public ViewResult Index()
         {
             return View();
         }
-        public IActionResult List()
+        public ViewResult List()
         {
             var products = context.Products.ToList();
 
             return View(products);
         }
 
-        //add method allowing user to add deck to the database
+        //add method allowing user to add products to the database
         [HttpGet]
         public ViewResult Add()
         {
@@ -63,7 +63,7 @@ namespace SportsPro.Controllers
                 return View(product);
             }
         }
-        //delete methods allowing user to delete decks 
+        //delete methods allowing user to delete products 
         [HttpGet]
         public ViewResult Delete(int id)
         {
