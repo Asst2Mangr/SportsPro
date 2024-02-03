@@ -20,10 +20,17 @@ namespace SportsPro.Controllers
             return View();
         }
 
-        public IActionResult List()
+        public IActionResult List(string filter)
         {
-            var incidents = ctx.Incidents.Include(i => i.Customer).Include(i => i.Product).ToList();
-            return View(incidents);
+            var incidents = GetIncidents(filter);
+
+            var viewModel = new IncidentViewModel
+            {
+                Incidents = incidents,
+                Filter = filter
+            };
+
+            return View("List", viewModel);
         }
 
         [HttpGet]
@@ -121,6 +128,16 @@ namespace SportsPro.Controllers
             ctx.SaveChanges();
             return RedirectToAction("List", "Incident");
         }
+        private List<Incident> GetIncidents(string filter)
+        {
+            var query = ctx.Incidents.Include(i => i.Customer).Include(i => i.Product).AsQueryable();
 
+            if (!string.IsNullOrEmpty(filter))
+            {
+                query = query.Where(i => i.Title.Contains(filter));
+            }
+
+            return query.ToList();
+        }
     }
 }

@@ -1,9 +1,18 @@
-﻿@model List<Incident>
+﻿@model SportsPro.Models.IncidentViewModel
 @{
     ViewBag.Title = "Incident Manager";
 }
 
 <h1>@ViewBag.Title</h1>
+<div class="row mb-3">
+    <div class="col-md-4">
+        <form asp-controller="Incident" asp-action="List" method="get" class="form-inline">
+            <label for="filter" class="mr-2">Filter by Title:</label>
+            <input type="text" id="filter" name="filter" value="@Model.Filter" class="form-control mr-2" />
+            <button type="submit" class="btn btn-primary">Apply Filter</button>
+        </form>
+    </div>
+</div>
 <div class="row">
     <div class="col-sm-2">
         <div class="col-sm-10">
@@ -15,9 +24,10 @@
                         <th>Product</th>
                         <th>Date Opened</th>
                         <th></th>
+                    </tr>
                 </thead>
                 <tbody>
-                    @foreach (var incident in Model)
+                    @foreach (var incident in Model.Incidents)
                     {
                         <tr>
                             <td>@incident.Title</td>
