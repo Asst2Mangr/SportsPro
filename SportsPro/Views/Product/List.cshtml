@@ -4,6 +4,12 @@
 }
 
 <h1>Product Manager</h1>
+@if (TempData.Keys.Contains("message"))
+{
+    <h4 class="bg-info text-center text-white p-2">
+        @TempData["message"]
+    </h4>
+}
 <div class="row">
     <div class="col-sm-2">
         <div class="col-sm-10">

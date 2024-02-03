@@ -50,11 +50,17 @@ namespace SportsPro.Controllers
             if (ModelState.IsValid)
             {
                 if (product.ProductID == 0)
+                {
                     context.Products.Add(product);
+                    TempData["message"] = $"{product.Name} was added to the database.";
+                }
                 else
+                {
                     context.Products.Update(product);
+                    TempData["message"] = $"{product.Name} was updated.";
+                }
                 context.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("List", "Product");
             }
             else
             {
@@ -72,11 +78,12 @@ namespace SportsPro.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Delete(Product product)
+        public IActionResult Delete(Product product)
         {
             context.Products.Remove(product);
             context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            TempData["message"] = $"{product.Name} was deleted from database.";
+            return RedirectToAction("List", "Product");
         }
     }
 }
