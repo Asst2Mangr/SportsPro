@@ -40,35 +40,36 @@ namespace SportsPro.Controllers
             var products = ctx.Products.ToList().OrderBy(p => p.Name).ToList();
             var technicians = ctx.Technicians.ToList().OrderBy(t => t.Name).ToList();
 
-            ViewBag.Action = "Add";
-            ViewBag.Customers = customers;
-            ViewBag.Products = products;
-            ViewBag.Technicians = technicians;
+            var viewModel = new AddEditIncidentViewModel
+            {
+                Customers = customers,
+                Products = products,
+                Technicians = technicians,
+                CurrentIncident = new Incident(),
+                Operation = "Add"
+            };
 
-            return View("Edit", new Incident());
+            return View("Edit", viewModel);
         }
 
         [HttpPost]
-        public IActionResult Add(Incident incident)
+        public IActionResult Add(AddEditIncidentViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                ctx.Incidents.Add(incident);
+                ctx.Incidents.Add(viewModel.CurrentIncident);
                 ctx.SaveChanges();
                 return RedirectToAction("List");
             }
 
-            var customers = ctx.Customers.ToList().OrderBy(c => c.FullName).ToList();
-            var products = ctx.Products.ToList().OrderBy(p => p.Name).ToList();
-            var technicians = ctx.Technicians.ToList().OrderBy(t => t.Name).ToList();
+            viewModel.Customers = ctx.Customers.ToList().OrderBy(c => c.FullName).ToList();
+            viewModel.Products = ctx.Products.ToList().OrderBy(p => p.Name).ToList();
+            viewModel.Technicians = ctx.Technicians.ToList().OrderBy(t => t.Name).ToList();
+            viewModel.Operation = "Add";
 
-            ViewBag.Action = "Add";
-            ViewBag.Customers = customers;
-            ViewBag.Products = products;
-            ViewBag.Technicians = technicians;
-
-            return View("Edit", incident);
+            return View("Edit", viewModel);
         }
+
 
         [HttpGet]
         public IActionResult Edit(int id)
@@ -84,35 +85,36 @@ namespace SportsPro.Controllers
             var products = ctx.Products.ToList().OrderBy(p => p.Name).ToList();
             var technicians = ctx.Technicians.ToList().OrderBy(t => t.Name).ToList();
 
-            ViewBag.Action = "Edit";
-            ViewBag.Customers = customers;
-            ViewBag.Products = products;
-            ViewBag.Technicians = technicians;
+            var viewModel = new AddEditIncidentViewModel
+            {
+                Customers = customers,
+                Products = products,
+                Technicians = technicians,
+                CurrentIncident = incident,
+                Operation = "Edit"
+            };
 
-            return View("Edit", incident);
+            return View("Edit", viewModel);
         }
 
         [HttpPost]
-        public IActionResult Edit(Incident incident)
+        public IActionResult Edit(AddEditIncidentViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                ctx.Incidents.Update(incident);
+                ctx.Incidents.Update(viewModel.CurrentIncident);
                 ctx.SaveChanges();
                 return RedirectToAction("List");
             }
 
-            var customers = ctx.Customers.ToList().OrderBy(c => c.FullName).ToList();
-            var products = ctx.Products.ToList().OrderBy(p => p.Name).ToList();
-            var technicians = ctx.Technicians.ToList().OrderBy(t => t.Name).ToList();
+            viewModel.Customers = ctx.Customers.ToList().OrderBy(c => c.FullName).ToList();
+            viewModel.Products = ctx.Products.ToList().OrderBy(p => p.Name).ToList();
+            viewModel.Technicians = ctx.Technicians.ToList().OrderBy(t => t.Name).ToList();
+            viewModel.Operation = "Edit";
 
-            ViewBag.Action = "Edit";
-            ViewBag.Customers = customers;
-            ViewBag.Products = products;
-            ViewBag.Technicians = technicians;
-
-            return View("Edit", incident);
+            return View("Edit", viewModel);
         }
+
 
         [HttpGet]
         public ViewResult Delete(int id)
