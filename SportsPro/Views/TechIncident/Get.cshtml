@@ -1,0 +1,30 @@
+﻿@model List<Technician>
+@{
+    ViewData["Title"] = "Get Technician";
+
+}
+@if (TempData.Keys.Contains("message"))
+{
+    <h4 class="bg-info text-center text-white p-2">
+        @TempData["message"]
+    </h4>
+}
+<script>
+    function select() {
+        const select = document.querySelector("select");
+        document.querySelector("#select").setAttribute("href", "/techincident/list/" + select.options[select.selectedIndex].value)
+    }
+</script>
+
+
+<div class="form-group">
+        <h1>Technician</h1>
+    <select onclick="select()" name="select" class="form-select" aria-label="Default select example">
+            <option>Select a Technician</option>
+            @foreach (var t in Model)
+            {
+                <option value="@t.TechnicianID">@t.Name</option>
+            }
+    </select>
+</div>
+<a id="select" asp-controller="TechIncident" asp-action="List" class="btn btn-primary">Select</a>

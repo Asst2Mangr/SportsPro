@@ -1,0 +1,50 @@
+﻿@model TechIncidentViewModel
+@{
+    ViewData["Title"] = "List Incidents for Technician";
+    var session = new SportsProSession(Context.Session);
+
+}
+@if (TempData.Keys.Contains("message"))
+{
+    <h4 class="bg-info text-center text-white p-2">
+        @TempData["message"]
+    </h4>
+}
+<div class="text-center">
+    <h1 class="jumbotron"><b>Technician: @Model.Technician.Name <br /> Assigned & Open Incidents</b></h1>
+</div>
+
+<div class="row">
+    <div class="col-sm-2">
+        <div class="col-sm-10">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Customer</th>
+                        <th>Product</th>
+                        <th>Date Opened</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var incident in Model.Incidents)
+                    {
+                        <tr>
+                            <td>@incident.Title</td>
+                            <td>@incident.Customer.FullName</td>
+                            <td>@incident.Product.Name</td>
+                            <td>@incident.DateOpened</td>
+                            <td>
+                                <a asp-controller="Incident" asp-action="Edit"
+                                   asp-route-id="@incident.IncidentID" class="btn btn-primary">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a asp-controller="TechIncident" asp-action="Get" class="btn btn-primary">Switch Technician</a>
+        </div>
+    </div>
+</div>
+
