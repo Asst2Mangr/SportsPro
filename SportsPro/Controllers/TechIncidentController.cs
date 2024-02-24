@@ -49,5 +49,29 @@ namespace SportsPro.Controllers
                 return RedirectToAction("Get");
             }
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var Model = context.Incidents
+                .Include(i => i.Customer)
+                .Include(i => i.Product)
+                .Include(i => i.Technician)
+                .SingleOrDefault(i => i.IncidentID == id);
+            var session = new SportsProSession(HttpContext.Session);
+            return View(Model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Incident incident)
+        {
+            var i = context.Incidents.Find(incident.IncidentID);
+            i.Description = incident.Description;
+            i.DateClosed = incident.DateClosed;
+
+            context.Incidents.Update(i);
+            context.SaveChanges();
+            return RedirectToAction("List", new { id = incident.TechnicianID });
+        }
     }
 }
