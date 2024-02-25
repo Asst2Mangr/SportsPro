@@ -19,33 +19,42 @@ namespace SportsPro.Controllers
         public ViewResult Get()
         {
             var technicians = context.Technicians.ToList();
-            return View(technicians);
+            return View(new TechSelectViewModel { Technicians = technicians });
         }
 
+
+        [HttpGet]
         public IActionResult List(int id)
         {
-            var session = new SportsProSession(HttpContext.Session);
             if (id != 0)
             {
+                var session = new SportsProSession(HttpContext.Session);
+                session.setMyTech(id);
+
                 var technician = context.Technicians.Find(id);
-                var Model = new TechIncidentViewModel
+                var incidents = context.Incidents
+                    .Include(i => i.Customer)
+                    .Include(i => i.Product)
+                    .Where(i => i.TechnicianID == technician.TechnicianID && i.DateClosed == null)
+                    .ToList();
+
+                var model = new TechIncidentViewModel
                 {
                     Technician = technician,
-                    Incidents = context.Incidents
-                        .Include(i => i.Customer)
-                        .Include(i => i.Product)
-                        .Where(i => i.TechnicianID == technician.TechnicianID &&
-                                    i.DateClosed == null).ToList()
+                    Incidents = incidents,
+                    SelectedTechnicianId = id
                 };
-                if(Model.Incidents.Count == 0)
+
+                if (model.Incidents.Count == 0)
                 {
                     TempData["message"] = $"No open incidents for this Technician";
                 }
-                return View(Model);
+
+                return View(model);
             }
             else
             {
-                TempData["message"] = $"Please enter a Technician";
+                TempData["message"] = $"Please select a Technician";
                 return RedirectToAction("Get");
             }
         }
