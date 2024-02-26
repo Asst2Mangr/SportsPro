@@ -4,15 +4,14 @@
 }
 
 <h1>@ViewBag.Title</h1>
-<div class="row mb-3">
-    <div class="col-md-4">
-        <form asp-controller="Incident" asp-action="List" method="get" class="form-inline">
-            <label for="filter" class="mr-2">Filter by Title:</label>
-            <input type="text" id="filter" name="filter" value="@Model.Filter" class="form-control mr-2" />
-            <button type="submit" class="btn btn-primary">Apply Filter</button>
-        </form>
-    </div>
+
+
+<div class="nav nav-pills"><!--Div that assigns 'active' to the corresonding filter.-->
+    <a class="nav-link @(Model.Filter == null ? "active" : "")" asp-action="List" asp-route-filter="">All</a>
+    <a class="nav-link @(Model.Filter == "unassigned" ? "active" : "")" asp-action="List" asp-route-filter="unassigned">Unassigned</a>
+    <a class="nav-link @(Model.Filter == "open" ? "active" : "")" asp-action="List" asp-route-filter="open">Open</a>
 </div>
+
 <div class="row">
     <div class="col-sm-2">
         <div class="col-sm-10">

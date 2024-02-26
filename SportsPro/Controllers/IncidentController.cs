@@ -134,9 +134,20 @@ namespace SportsPro.Controllers
         {
             var query = ctx.Incidents.Include(i => i.Customer).Include(i => i.Product).AsQueryable();
 
-            if (!string.IsNullOrEmpty(filter))
+            switch (filter?.ToLower()) //switch statement to check the value if fultered.
             {
-                query = query.Where(i => i.Title.Contains(filter));
+                case "unassigned":
+                    query = query.Where(i => i.TechnicianID == null);
+                    break;
+                case "open":
+                    query = query.Where(i => i.DateClosed == null);
+                    break;
+                default:
+                    if (!string.IsNullOrEmpty(filter))
+                    {
+                        query = query.Where(i => i.Title.Contains(filter));
+                    }
+                    break;
             }
 
             return query.ToList();
