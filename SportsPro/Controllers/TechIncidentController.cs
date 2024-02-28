@@ -24,8 +24,9 @@ namespace SportsPro.Controllers
 
 
         [HttpGet]
-        public IActionResult List(int id)
+        public IActionResult List(TechSelectViewModel m)
         {
+            int id = m.SelectedTechnicianId;
             if (id != 0)
             {
                 var session = new SportsProSession(HttpContext.Session);
