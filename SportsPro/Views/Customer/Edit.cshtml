@@ -11,6 +11,12 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
+<style>
+    .input-validation-error {
+        border: 2px solid #dc3545; /* same red as text-danger */
+        background-color: #faebd7; /* antique white */
+    }
+</style>
 
 <!--
     Customer Edit/Add view
@@ -60,7 +66,7 @@
         <input asp-for="Email" class="form-control">
     </div>
     <div class="form-group">
-        <label asp-for="Phone">Price</label>
+        <label asp-for="Phone">Phone Number</label>
         <input asp-for="Phone" class="form-control">
     </div>
     <input type="hidden" asp-for="CustomerID" />

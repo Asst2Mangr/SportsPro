@@ -19,6 +19,8 @@ namespace SportsPro.Controllers
             return View();
         }
 
+        
+
         // Loads the Customer List
         public IActionResult List()
         {
@@ -55,6 +57,14 @@ namespace SportsPro.Controllers
         [HttpPost]
         public IActionResult Edit(Customer customer)
         {
+            if (TempData["okEmail"] == null)
+            {
+                string msg = ValidationController.EmailExists(_context, customer.Email);
+                if (!string.IsNullOrEmpty(msg))
+                {
+                    ModelState.AddModelError(nameof(Customer.Email), msg);
+                }
+            }
             if (ModelState.IsValid)
             {
                 if (customer.CustomerID == 0)
@@ -87,5 +97,7 @@ namespace SportsPro.Controllers
             _context.SaveChanges();
             return RedirectToAction("List", "Customer");
         }
+
+        
     }
 }
