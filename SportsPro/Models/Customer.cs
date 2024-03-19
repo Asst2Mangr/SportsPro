@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Newtonsoft.Json.Serialization;
 
 namespace SportsPro.Models
 {
@@ -34,11 +35,11 @@ namespace SportsPro.Models
 		[Required]
 		public string CountryID { get; set; }
 		public Country Country { get; set; }
-        [RegularExpression("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$")]
+        [RegularExpression("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$", ErrorMessage ="Please enter a valid phone number")]
         public string Phone { get; set; }
 		[Required]
         [StringLength(51)]
-        [DataType(DataType.EmailAddress)]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Please enter a valid email")]
         public string Email { get; set; }
 
 		public string FullName => FirstName + " " + LastName;   // read-only property
