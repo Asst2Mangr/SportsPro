@@ -1,0 +1,23 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = "Get Customer";
+}
+
+<h1>Get Customer</h1>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+<form asp-controller="Registration" asp-action="GetCustomer" method="post">
+    <div class="form-group">
+        <label asp-for="CustomerID">Customer</label>
+        <select asp-for="CustomerID" asp-items="ViewBag.Customers" class="form-control">
+            <option value="">Select a Customer</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Select</button>
+</form>
